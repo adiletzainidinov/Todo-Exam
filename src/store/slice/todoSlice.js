@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BASE_URL } from "../../util/URL";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { BASE_URL } from '../../util/URL';
 
 const initialState = {
   data: [],
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const todoSlice = createSlice({
-  name: "todoList",
+  name: 'todoList',
   initialState: initialState,
   reducers: {
     editingTodo(state, action) {
@@ -88,7 +88,7 @@ export const editingTodo = todoSlice.actions.editingTodo;
 export default todoSlice.reducer;
 
 export const getTodoList = createAsyncThunk(
-  "todoList/getTodoList",
+  'todoList/getTodoList',
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(BASE_URL);
@@ -110,13 +110,13 @@ export const getTodoList = createAsyncThunk(
 );
 
 export const addPostTodoList = createAsyncThunk(
-  "todoList/postTodoList",
+  'todoList/postTodoList',
   async (newData, thunkApi) => {
     console.log(newData);
     try {
       await fetch(BASE_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(newData),
       });
       thunkApi.dispatch(getTodoList());
@@ -127,13 +127,13 @@ export const addPostTodoList = createAsyncThunk(
 );
 
 export const deleteTodoList = createAsyncThunk(
-  "todoList/deleteTodoList",
+  'todoList/deleteTodoList',
   async (id, thunkApi) => {
     try {
       await fetch(
-        `https://examen-c1cd8-default-rtdb.firebaseio.com/todoList/${id}.json`,
+        `https://todo-14bcb-default-rtdb.firebaseio.com/TodoList/${id}.json`,
         {
-          method: "DELETE",
+          method: 'DELETE',
         }
       );
       thunkApi.dispatch(getTodoList());
@@ -144,16 +144,16 @@ export const deleteTodoList = createAsyncThunk(
 );
 
 export const editTodoList = createAsyncThunk(
-  "todoList/editTodoList",
+  'todoList/editTodoList',
   async (data, thunkApi) => {
     const { id, ...rest } = data;
     console.log(data);
     try {
       await fetch(
-        `https://examen-c1cd8-default-rtdb.firebaseio.com/todoList/${id}.json`,
+        `https://todo-14bcb-default-rtdb.firebaseio.com/TodoList/${id}.json`,
         {
-          method: "PATCH",
-          headers: { "Content-type": "application/json" },
+          method: 'PATCH',
+          headers: { 'Content-type': 'application/json' },
           body: JSON.stringify(rest),
         }
       );
@@ -165,15 +165,15 @@ export const editTodoList = createAsyncThunk(
 );
 
 export const complatedTodoList = createAsyncThunk(
-  "todoList/complatedTodoList",
+  'todoList/complatedTodoList',
   async (data, thunkApi) => {
     console.log(data);
     try {
       await fetch(
-        `https://examen-c1cd8-default-rtdb.firebaseio.com/todoList/${data.id}.json`,
+        `https://todo-14bcb-default-rtdb.firebaseio.com/TodoList/${data.id}.json`,
         {
-          method: "PATCH",
-          headers: { "Content-type": "application/json" },
+          method: 'PATCH',
+          headers: { 'Content-type': 'application/json' },
           body: JSON.stringify({ ...data, isComplated: !data.isComplated }),
         }
       );

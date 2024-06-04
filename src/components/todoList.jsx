@@ -15,7 +15,6 @@ const TodoList = () => {
   const todoList = useSelector(selectTodo);
   const navigate = useNavigate();
   const isLoading = useSelector(selectLoading);
-  const isComplated = useSelector(selectComlated);
 
   function deleteHandler(id) {
     dispatch(deleteTodoList(id));
@@ -41,7 +40,7 @@ const TodoList = () => {
         <h2>Todo List</h2>
         {isLoading ? (
           <>
-            <Loading>Loading...</Loading>
+            <Loading><span class="loader"></span></Loading>
           </>
         ) : (
           ""
@@ -58,7 +57,6 @@ const TodoList = () => {
           <Tr>
             <Th>№</Th>
             <Th>Задача</Th>
-            <Th>Date</Th>
             <Th></Th>
           </Tr>
         </thead>
@@ -78,7 +76,6 @@ const TodoList = () => {
               >
                 {item.value}
               </TdText>
-              <Td>{item.date}</Td>
               <Td>
                 {item.isComplated ? (
                   <Button
@@ -89,20 +86,20 @@ const TodoList = () => {
                   </Button>
                 ) : (
                   <Button
-                    style={{ backgroundColor: "grey", color: "white" }}
+                    style={{ backgroundColor: "#54aeff", color: "white" }}
                     onClick={() => toggleIsComplated(item.id)}
                   >
                     Complated
                   </Button>
                 )}
                 <Button
-                  style={{ backgroundColor: "blue", color: "white" }}
+                  style={{ backgroundColor: "#71a888", color: "white" }}
                   onClick={() => editHandler(item.id)}
                 >
                   Edit
                 </Button>
                 <Button
-                  style={{ backgroundColor: "red", color: "white" }}
+                  style={{ backgroundColor: "#4e5080", color: "white" }}
                   onClick={() => {
                     deleteHandler(item.id);
                   }}
@@ -124,8 +121,9 @@ const Loading = styled.h2`
   margin: 0px 0px;
 `;
 const Container = styled.div`
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
+ 
 `;
 const Header = styled.header`
   display: flex;
@@ -133,7 +131,7 @@ const Header = styled.header`
   padding: 10px 30px;
 `;
 const Button = styled.button`
-  padding: 5px 0px;
+  padding: 15px 0px;
   margin: 0 10px;
   border-radius: 15px;
   border: 0;
@@ -146,7 +144,7 @@ const Td = styled.td`
 `;
 const TdText = styled.td`
   border: 1px solid grey;
-  padding: 5px;
+  padding: 15px;
   text-align: left;
 `;
 const Th = styled.th`
@@ -159,9 +157,10 @@ const Table = styled.table`
 `;
 const Tr = styled.tr`
   display: grid;
-  grid-template-columns: 50px 2fr 1fr 3fr;
+  grid-template-columns: 50px 2fr  3fr;
   &:hover {
-    background-color: #65bdbd;
+    background-color: #4dade9;
     color: aliceblue;
   }
 `;
+
